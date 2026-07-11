@@ -1,25 +1,54 @@
-Non tradional variation on the previous flappy bird game. 
-==========
-Modified by Wade Helquist.
-==========
-Variable openings for pipes. 
-Added score is dependent on how large/small the opening is.
-Smaller openings give more points.
-In-between each pipe opening it shows how much points you will get for that pipe.
+# Flappy Bird Enhanced
 
-Alternates between night and day with every round and every 250 points earned.
-Night and day have color changes to bird, pipes, and background.
+An enhanced variation of the original Java Flappy Bird game created by William Fiset, inspired by the original mobile game by Dong Nguyen.
 
-FlappyBird
-==========
+This project focused on understanding an existing Java codebase and extending it with new gameplay mechanics, scoring systems, visual enhancements, and procedural obstacle generation.
 
-Java Replica of the original Flappy Bird for mobile game created by Dong Nguyen.
+---
 
+## Features
 
+- Variable-sized pipe openings that increase gameplay variety.
+- Adaptive scoring based on obstacle difficulty, with smaller openings awarding more points.
+- Dynamic point values displayed between each pipe opening before the player reaches the obstacle.
+- Alternating day and night gameplay that changes every round and every 250 points earned.
+- Separate day and night graphics for the bird, pipes, and background.
+- Enhanced gameplay balancing and progression.
+- Updated user interface and score display.
+- Additional gameplay refinements and codebase improvements.
 
-![Alt text](https://raw.githubusercontent.com/MicahAndWill/FlappyBird/master/screenShots/screenshot1.png "FlappyBird Screen Shot")
+---
 
+## Technologies
 
-![Alt text](https://raw.githubusercontent.com/MicahAndWill/FlappyBird/master/screenShots/screenShot3.png "FlappyBird Screen Shot")
+- Java
+- Java Swing
+- Object-Oriented Programming
 
-![Alt text](https://raw.githubusercontent.com/MicahAndWill/FlappyBird/master/screenShots/screenShot2.png "FlappyBird Screen Shot")
+---
+
+## Development Highlights
+
+This project provided experience extending an existing Java application rather than building one from scratch.
+
+Areas of development included:
+
+- Reading and understanding an unfamiliar codebase
+- Extending existing object-oriented architecture
+- Implementing new gameplay mechanics
+- Designing a custom scoring algorithm
+- Procedural obstacle generation
+- Collision detection modifications
+- Gameplay balancing
+- User interface enhancements
+- Debugging and iterative feature development
+
+---
+
+## Credits
+
+Original Flappy Bird game concept by **Dong Nguyen**.
+
+Original Java implementation by **William Fiset**.
+
+This repository contains my enhanced variation with significant gameplay and code modifications.
