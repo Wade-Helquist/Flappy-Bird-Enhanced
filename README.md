@@ -27,21 +27,33 @@ This project focused on understanding an existing Java codebase and extending it
 
 ---
 
-## Development Highlights
+## Development Process
 
-This project provided experience extending an existing Java application rather than building one from scratch.
+Development progressed through iterative feature development over several weeks, with regular commits introducing new gameplay mechanics, refining the user experience, and improving code quality.
 
-Areas of development included:
+Commit history reflects work including:
 
-- Reading and understanding an unfamiliar codebase
-- Extending existing object-oriented architecture
-- Implementing new gameplay mechanics
-- Designing a custom scoring algorithm
-- Procedural obstacle generation
-- Collision detection modifications
-- Gameplay balancing
-- User interface enhancements
-- Debugging and iterative feature development
+- **October 2023**
+  - Added variable pipe lengths with dynamic score and award calculations
+  - Implemented score-on-pipe mechanics and score value indicators
+
+- **Early November 2023**
+  - Introduced day and night themes with dynamic visual transitions
+  - Enhanced bird, pipe, medal, and game artwork
+  - Tuned gameplay through speed, collision, and difficulty adjustments
+  - Added a second pipe opening and expanded scoring mechanics
+
+- **Mid November 2023**
+  - Began development of a two-player game mode
+  - Implemented independent controls and physics for both players
+  - Improved animations, background movement, sprite scaling, and visual effects
+  - Refined multiplayer scoring, gameplay logic, and interface layout
+  - Consolidated and refactored code to improve maintainability
+
+- **Late November – Early December 2023**
+  - Completed two-player mode
+  - Fixed gameplay, animation, collision, and scoring bugs
+  - Merged feature branches and finalized gameplay refinements
 
 ---
 
