@@ -45,7 +45,7 @@
       }
 
       .game-shell {
-        width: min(100%, 608px);
+        width: min(100%, 900px);
         margin: 0 auto;
         padding: 15px;
         overflow: hidden;
@@ -55,11 +55,18 @@
         box-shadow: 0 28px 80px rgba(0, 0, 0, 0.5);
       }
 
-      #display {
+      #game-viewport {
         width: 100%;
-        aspect-ratio: 9 / 8;
         overflow: hidden;
         border-radius: 12px;
+        background: #020617;
+        touch-action: manipulation;
+      }
+
+      #display {
+        width: 576px;
+        height: 512px;
+        transform-origin: top left;
         background: #020617;
       }
 
@@ -93,21 +100,35 @@
       <p class="subtitle">The original Java game, running directly in your browser.</p>
 
       <section class="game-shell" aria-label="Flappy Bird Enhanced game">
-        <div id="display"></div>
+        <div id="game-viewport">
+          <div id="display"></div>
+        </div>
         <p id="status" role="status">Loading the Java runtime…</p>
       </section>
 
-      <p class="help">Click inside the game, then use <kbd>Space</kbd>, <kbd>W</kbd>, or the mouse.</p>
+      <p class="help">Click or tap inside the game. You can also use <kbd>Space</kbd> or <kbd>W</kbd>.</p>
     </main>
 
     <script>
       (async function startGame() {
         const status = document.getElementById("status");
         const display = document.getElementById("display");
+        const viewport = document.getElementById("game-viewport");
+        const gameWidth = 576;
+        const gameHeight = 512;
+
+        function resizeGame() {
+          const scale = Math.min(1.5, viewport.clientWidth / gameWidth);
+          display.style.transform = `scale(${scale})`;
+          viewport.style.height = `${gameHeight * scale}px`;
+        }
+
+        resizeGame();
+        new ResizeObserver(resizeGame).observe(viewport);
 
         try {
           await cheerpjInit({ version: 8, status: "splash" });
-          cheerpjCreateDisplay(-1, -1, display);
+          cheerpjCreateDisplay(gameWidth, gameHeight, display);
 
           const pageDirectory = new URL(".", window.location.href).pathname;
           const jarPath = `/app${pageDirectory}FlappyBird.jar`.replace(/\/{2,}/g, "/");
