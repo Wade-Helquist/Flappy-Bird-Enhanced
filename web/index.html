@@ -28,7 +28,7 @@
       }
 
       main {
-        width: min(100%, 930px);
+        width: min(100%, 790px);
         text-align: center;
       }
 
@@ -45,7 +45,7 @@
       }
 
       .game-shell {
-        width: min(100%, 900px);
+        width: min(100%, 760px);
         margin: 0 auto;
         padding: 15px;
         overflow: hidden;
@@ -56,7 +56,7 @@
       }
 
       #game-viewport {
-        width: 100%;
+        margin: 0 auto;
         overflow: hidden;
         border-radius: 12px;
         background: #020617;
@@ -118,8 +118,10 @@
         const gameHeight = 512;
 
         function resizeGame() {
-          const scale = Math.min(1.5, viewport.clientWidth / gameWidth);
+          const availableWidth = viewport.parentElement.clientWidth;
+          const scale = Math.min(1.25, availableWidth / gameWidth);
           display.style.transform = `scale(${scale})`;
+          viewport.style.width = `${gameWidth * scale}px`;
           viewport.style.height = `${gameHeight * scale}px`;
         }
 
