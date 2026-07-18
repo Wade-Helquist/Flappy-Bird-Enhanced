@@ -28,12 +28,14 @@ public class GameStarter{
 
         // Set default Program values
         appletFrame.setResizable(false);
+        // Run borderless in the browser so CheerpJ does not expose a draggable
+        // desktop window that can cover the game or intercept button clicks.
+        appletFrame.setUndecorated(true);
         appletFrame.setSize(FlappyBird.SCREEN_WIDTH, FlappyBird.SCREEN_HEIGHT);
+        appletFrame.setLocation(0, 0);
+        appletFrame.setTitle("Flappy Bird Enhanced");
         appletFrame.setVisible(true); 
         appletFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-
-        // Anchor the frame inside the browser display.
-        appletFrame.setLocation(0, 0);
 
         // Desktop version (disabled for the responsive browser display):
         // Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -41,8 +43,5 @@ public class GameStarter{
         // int screenStartY = screenDimension.height/2 - appletFrame.getSize().height/2;
         // appletFrame.setLocation(screenStartX, screenStartY);
         
-        // Add title
-        appletFrame.setTitle("Flappy Bird Enhanced");
-
     }
 }
