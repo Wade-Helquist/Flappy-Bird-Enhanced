@@ -15,13 +15,16 @@ import java.awt.event.*;
 public class FlappyBird extends GraphicsProgram {
 
 	final static int SCREEN_WIDTH = 288 * 2, SCREEN_HEIGHT = 512, GROUND_LEVEL = 400, PIPE_WIDTH = 52,
-			BIRD1_X_START = 68, BIRD2_X_START = 68;
+			BIRD1_X_START = 68;
+	// TWO-PLAYER MODE (disabled): BIRD2_X_START = 68;
 
-	Bird player1, player2; // The bird that the user controls
+	Bird player1; // The bird that the user controls
+	// TWO-PLAYER MODE (disabled): Bird player1, player2;
 	FileHandler highScoreFile; // Used to save the high score to a file
 
 	static int currentMode = 0; // 0 = Get Ready, 1 = Playing, 2 = Falling, 3 = Game Over
-	static int score1, score2, total;
+	static int score1, total;
+	// TWO-PLAYER MODE (disabled): static int score1, score2, total;
 	public static boolean isNight = true; // true = night, false = day
 	Boolean scoreGained = false;
 
@@ -54,7 +57,7 @@ public class FlappyBird extends GraphicsProgram {
 
 		// Instantiate Bird
 		player1 = new Bird(FlappyBird.BIRD1_X_START, 240);
-		player2 = new Bird(FlappyBird.BIRD2_X_START, 240);
+		// TWO-PLAYER MODE (disabled): player2 = new Bird(FlappyBird.BIRD2_X_START, 240);
 
 		// Creates a new fileHanlder to deal with saving to a file
 		highScoreFile = new FileHandler();
@@ -96,12 +99,13 @@ public class FlappyBird extends GraphicsProgram {
 			add(Data.pipeMiddleNight[i]);
 		}
 		add(Data.getReady);
-		total = score1 + score2;
+		total = score1;
+		// TWO-PLAYER MODE (disabled): total = score1 + score2;
 		if (total > (scoreInterval * 100)) { // if score is greater than 100
 			add(Data.birdLogo);
 		}
 		add(Data.instructions);
-		add(Data.player2Up);
+		// TWO-PLAYER MODE (disabled): add(Data.player2Up);
 		add(Data.player1Up);
 
 		// Initializes the images for the running total digits so that it's not null
@@ -130,12 +134,16 @@ public class FlappyBird extends GraphicsProgram {
 				score1 = 0;
 				drawScore();
 				Music.playSound("Music/falling.wav");
-			} else if (playerIndex == 2 && scoreGained == true) {
-				score2 = 0;
-				drawScore();
-				Music.playSound("Music/falling.wav");
 			}
-			if (scoreGained == true && score1 == 0 && score2 == 0) {
+			// TWO-PLAYER MODE (disabled):
+			// } else if (playerIndex == 2 && scoreGained == true) {
+			// 	score2 = 0;
+			// 	drawScore();
+			// 	Music.playSound("Music/falling.wav");
+			// }
+			if (scoreGained == true && score1 == 0) {
+				// TWO-PLAYER MODE (disabled):
+				// if (scoreGained == true && score1 == 0 && score2 == 0) {
 				currentMode = 2;
 				endRound();
 			}
@@ -170,7 +178,7 @@ public class FlappyBird extends GraphicsProgram {
 			if (FlappyBird.currentMode == 1 || FlappyBird.currentMode == 2) {
 
 				player1.fly();
-				player2.fly();
+				// TWO-PLAYER MODE (disabled): player2.fly();
 			}
 
 			// Playing
@@ -178,15 +186,15 @@ public class FlappyBird extends GraphicsProgram {
 
 				movePipes();
 
-					handlePipeCollision(player1, 1);
-					handlePipeCollision(player2, 2);
+				handlePipeCollision(player1, 1);
+				// TWO-PLAYER MODE (disabled): handlePipeCollision(player2, 2);
 			}
 			moveBackground();
 
 			// Draw the bird with his flappy little wings
 			if (FlappyBird.currentMode < 3)
 				player1.draw(this, 1);
-			player2.draw(this, 2);
+			// TWO-PLAYER MODE (disabled): player2.draw(this, 2);
 			// This controls the speed of the game
 			pause(40);
 
@@ -224,7 +232,8 @@ public class FlappyBird extends GraphicsProgram {
 			}
 			return;
 		}
-		respondToUserInput(2);
+		respondToUserInput(1);
+		// TWO-PLAYER MODE (disabled): respondToUserInput(2);
 	}
 
 	/** Responds to user input by invoking flapWing() or changing the game state **/
@@ -242,29 +251,32 @@ public class FlappyBird extends GraphicsProgram {
 		else if (FlappyBird.currentMode == 1) {
 			if (player == 1)
 				player1.capHeight();
-			else if (player == 2)
-				player2.capHeight();
+			// TWO-PLAYER MODE (disabled):
+			// else if (player == 2)
+			// 	player2.capHeight();
 			Music.playSound("Music/flap.wav");
 		}
 
 	}
 
 	private void calculateScore(Bird player, int scoreIndex, int i) {
-		int[] scores = { score1, score2 };
+		// TWO-PLAYER MODE (disabled): int[] scores = { score1, score2 };
 		int[] distances = { distance1[i], distance2[i] };
 
 		if (player.getY() < topOfMiddlePipe[i] + 55.5 ) {
-			scores[scoreIndex - 1] += 100 - distances[0];
+			score1 += 100 - distances[0];
+			// TWO-PLAYER MODE (disabled): scores[scoreIndex - 1] += 100 - distances[0];
 			scoreGained = true;
 		}
 		 else  if (player.getY() > bottomOfMiddlePipe[i] - 55.5) {
-			scores[scoreIndex - 1] += 100 - distances[1];
+			score1 += 100 - distances[1];
+			// TWO-PLAYER MODE (disabled): scores[scoreIndex - 1] += 100 - distances[1];
 			scoreGained = true;
 		 }
-	
-		// Update the original score variables
-			score1 = scores[0];
-			score2 = scores[1];
+
+		// TWO-PLAYER MODE (disabled): Update the original score variables
+		// score1 = scores[0];
+		// score2 = scores[1];
 	}
 
 	/** Moves the pipes to the left, warping to the right side if needed **/
@@ -299,9 +311,10 @@ public class FlappyBird extends GraphicsProgram {
 				
 				// award score for each pipe that you pass
 				calculateScore(player1, 1, i);
-				calculateScore(player2, 2, i);
+				// TWO-PLAYER MODE (disabled): calculateScore(player2, 2, i);
 
-				total = score1 + score2; // total score
+				total = score1;
+				// TWO-PLAYER MODE (disabled): total = score1 + score2;
 				drawScore();
 
 				Music.playSound("Music/coinSound.wav");
@@ -358,9 +371,10 @@ public void flipAllImages() {
     Data.player1Flat = flipAndReplaceImage(Data.player1Flat);
     Data.player1Down = flipAndReplaceImage(Data.player1Down);
     Data.player1Up = flipAndReplaceImage(Data.player1Up);
-    Data.player2Flat = flipAndReplaceImage(Data.player2Flat);
-    Data.player2Down = flipAndReplaceImage(Data.player2Down);
-    Data.player2Up = flipAndReplaceImage(Data.player2Up);
+	// TWO-PLAYER MODE (disabled):
+	// Data.player2Flat = flipAndReplaceImage(Data.player2Flat);
+	// Data.player2Down = flipAndReplaceImage(Data.player2Down);
+	// Data.player2Up = flipAndReplaceImage(Data.player2Up);
 	Data.backgroundNight =  flipAndReplaceImage(Data.backgroundNight);
 	Data.backgroundNight2 = flipAndReplaceImage(Data.backgroundNight2);
 	Data.backgroundNight3 =  flipAndReplaceImage(Data.backgroundNight3);
@@ -470,9 +484,9 @@ private GImage flipAndReplaceImage(GImage oldImage) {
 		Data.player1Up.setLocation(-100, 0);
 
 		// //Player 2
-		Data.player2Flat.setLocation(-100, 0);
-		Data.player2Down.setLocation(-100, 0);
-		Data.player2Up.setLocation(-100, 0);
+		// Data.player2Flat.setLocation(-100, 0);
+		// Data.player2Down.setLocation(-100, 0);
+		// Data.player2Up.setLocation(-100, 0);
 	}
 
 	/** Displays the graphics for the end of a round **/
@@ -491,7 +505,7 @@ private GImage flipAndReplaceImage(GImage oldImage) {
 
 		FlappyBird.currentMode = 3;
 		player1.animationCounter = 0;
-		player2.animationCounter = 0;
+		// TWO-PLAYER MODE (disabled): player2.animationCounter = 0;
 		// remove the birds
 
 		// Other
@@ -502,7 +516,8 @@ private GImage flipAndReplaceImage(GImage oldImage) {
 		// Award medal if applicable
 
 		// Determines the interval for each medal
-		total = (score1 + score2); // total score
+		total = score1;
+		// TWO-PLAYER MODE (disabled): total = (score1 + score2);
 		if (total > scoreInterval * 100)
 			add(Data.birdMedal);
 		else if (total > scoreInterval * 40)
@@ -552,10 +567,10 @@ private GImage flipAndReplaceImage(GImage oldImage) {
 
 		// Adjust Variables
 		player1.setY(240);
-		player2.setY(240);
+		// TWO-PLAYER MODE (disabled): player2.setY(240);
 
 		player1.downwardSpeed = 0;
-		player2.downwardSpeed = 0;
+		// TWO-PLAYER MODE (disabled): player2.downwardSpeed = 0;
 
 		// Reset mode to "Get Ready"
 		FlappyBird.currentMode = 0;
@@ -563,7 +578,8 @@ private GImage flipAndReplaceImage(GImage oldImage) {
 		// Game setup
 		resetPipes();
 		add(Data.getReady);
-		total = (score1 + score2); // total score
+		total = score1;
+		// TWO-PLAYER MODE (disabled): total = (score1 + score2);
 		if (total > scoreInterval * 100) {
 			add(Data.birdLogo);
 		}
@@ -586,7 +602,7 @@ private GImage flipAndReplaceImage(GImage oldImage) {
 		// Reset score
 		score1 = 0; // player 1
 		total = 0; // total
-		score2 = 0; // player 2
+		// TWO-PLAYER MODE (disabled): score2 = 0; // player 2
 		initializeDigits(false);
 
 		// Draw initial '0'
@@ -697,10 +713,13 @@ private GImage flipAndReplaceImage(GImage oldImage) {
 
 	/** Draws your current score on the screen **/
 	protected void drawScore() {
-		// loop thru two scores
-		int[] score = { score1, total, score2 };
-		int[][] drawLocation = { { 85, SCREEN_WIDTH - 85, 85 }, { 425, 425, 447 } };
-		for (int i = 0; i < 3; i++) {
+		// TWO-PLAYER MODE (disabled):
+		// int[] score = { score1, total, score2 };
+		// int[][] drawLocation = { { 85, SCREEN_WIDTH - 85, 85 }, { 425, 425, 447 } };
+		// for (int i = 0; i < 3; i++) {
+		int[] score = { score1 };
+		int[][] drawLocation = { { SCREEN_WIDTH / 2 }, { 425 } };
+		for (int i = 0; i < 1; i++) {
 			// Initialize variables
 			int widthScore = -1, digitCounter = 0;
 
