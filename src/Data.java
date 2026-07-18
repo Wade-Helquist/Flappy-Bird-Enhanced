@@ -8,8 +8,8 @@
 
 import acm.graphics.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 public abstract class Data {
@@ -46,8 +46,10 @@ public abstract class Data {
 	public static void loadImages() {
 
 		// Import sprite-sheet
-		try {
-			fullImage = ImageIO.read(new File("Images/flappyBirdGraphics.png"));
+		try (InputStream spriteSheet = Data.class.getResourceAsStream("/Images/flappyBirdGraphics.png")) {
+			if (spriteSheet == null)
+				throw new IOException("Missing sprite sheet: /Images/flappyBirdGraphics.png");
+			fullImage = ImageIO.read(spriteSheet);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
