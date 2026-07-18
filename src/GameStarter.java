@@ -39,7 +39,7 @@ public class GameStarter{
         appletFrame.setLocation(screenStartX, screenStartY);
         
         // Add title
-        appletFrame.setTitle("StrataBird - Wade");
+        appletFrame.setTitle("Flappy Bird Enhanced");
 
     }
 }
